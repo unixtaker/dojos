@@ -1,11 +1,11 @@
 class PokerSet
-  HIGH_CARD = 0x00
+  NONE = 0x00
   ONE_PAIR = 0x01
   TWO_PAIR = 0x02
   THREE_OF_A_KIND = 0x04
   STRAIGHT = 0x08
-  FLUSH = 0x10
-  FULL_HOUSE = 0x20
+  FULL_HOUSE = 0x10
+  FLUSH = 0x20  
   FOUR_OF_A_KIND = 0x40
   STRAIGHT_FLUSH = 0x80
 end
@@ -22,11 +22,19 @@ class Hand
   end
   
   def high_card
-    @cards.sort_by(&:value).last
+    sorted_cards_by_value.last
+  end
+  
+  def sorted_cards_by_value
+     @cards.sort_by(&:value)
   end
   
   def has_pair?
     set_of?(2) 
+  end
+  
+  def has_two_pair?
+    set_of_count(2).count>1
   end
   
   def has_three_of_a_kind?
@@ -69,14 +77,37 @@ class Hand
      has_straight? && has_flush?
   end
   
+  def rank_hand_set    
+     if has_straight_flush? 
+       return PokerSet::STRAIGHT_FLUSH
+     elsif has_four_of_a_kind?
+       return PokerSet::FOUR_OF_A_KIND
+     elsif has_full_house?
+       return PokerSet::FULL_HOUSE
+     elsif has_flush?
+       return PokerSet::FLUSH
+     elsif has_straight?
+       return PokerSet::STRAIGHT
+     elsif has_three_of_a_kind?
+       return PokerSet::THREE_OF_A_KIND
+     elsif has_two_pair?
+       return PokerSet::TWO_PAIR
+     elsif has_pair? 
+       return PokerSet::PAIR              
+     end
+     return PokerSet::NONE
+  end
+  
   private
   
-  def sequence_of(continuous)
-    
-  end
+  
   
   def set_of?(count)
     same_card_set.values.select{|v| v == count}.any?
+  end
+  
+  def set_of_count(count)
+     same_card_set.values.select{|v| v == count}
   end
   
   

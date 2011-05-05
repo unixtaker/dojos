@@ -23,6 +23,11 @@ class TestHand < Test::Unit::TestCase
     assert hand.has_pair?
   end
   
+  def test_hand_has_two_pair
+     hand = Hand.new("2H 2D 3H 3D KH")
+     assert hand.has_two_pair?
+  end
+  
   def test_hand_does_not_have_pair
     hand = Hand.new("2H 3D 4C")
     assert !hand.has_pair?

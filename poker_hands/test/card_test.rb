@@ -31,6 +31,11 @@ class TestCard < Test::Unit::TestCase
     assert_equal 11, card.value
   end
   
+  def test_ace_should_have_value_of_14
+     card = Card.new("AH")
+     assert_equal 14, card.value
+  end
+  
   def test_only_valid_card_values_are_allowed
     assert_raise StandardError do
       card = Card.new("ZZ")
