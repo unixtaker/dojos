@@ -27,12 +27,27 @@ class Game
       #  puts "continue: cards are the same"      	
       elsif @players.first.hand.sorted_cards_by_value[i].value > @players.last.hand.sorted_cards_by_value[i].value 
       #  puts "first player wins"
+        @players.first.set_winning_card @players.first.hand.sorted_cards_by_value[i]
       	return @players.first
       else
       #  puts "second player wins"  
+        @players.last.set_winning_card @players.last.hand.sorted_cards_by_value[i]
         return @players.last
       end
       }     
     return nil
   end
+  
+  
+  def winning_message
+     message = ""
+     
+     if winner.nil?
+       message = "Tie."
+     else
+       message = winner.name + " wins. - with " + winner.get_friendly_pokerhand 
+     end     
+     message
+  end
+  
 end

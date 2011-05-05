@@ -25,6 +25,7 @@ class TestGame < Test::Unit::TestCase
   	game.add_player playerw
         game.add_player playerb
       	assert_equal playerb, game.winner
+      	assert_equal "Black wins. - with high card: 9", game.winning_message
   end
   
   def test_ace_high_wins
@@ -34,6 +35,7 @@ class TestGame < Test::Unit::TestCase
 	game.add_player winner
 	game.add_player loser
       	assert_equal winner, game.winner
+      	assert_equal "White wins. - with high card: Ace", game.winning_message
   end
   
   def test_flush_wins
@@ -43,6 +45,7 @@ class TestGame < Test::Unit::TestCase
   	game.add_player winner
   	game.add_player loser
         assert_equal winner, game.winner
+        assert_equal "White wins. - with flush", game.winning_message
   end
   
   def test_no_winner
@@ -52,6 +55,7 @@ class TestGame < Test::Unit::TestCase
     	game.add_player persona
     	game.add_player personb
         assert_equal nil, game.winner
+        assert_equal "Tie.", game.winning_message
   end
   
   

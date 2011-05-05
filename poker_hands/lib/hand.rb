@@ -11,7 +11,7 @@ class PokerSet
 end
 
 class Hand
-  attr_reader :cards
+  attr_reader :cards  
   
   def initialize(cards)
     @cards = cards.split(" ").map {|c| Card.new(c)}

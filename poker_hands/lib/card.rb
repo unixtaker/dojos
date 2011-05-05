@@ -9,6 +9,21 @@ class Card
     @suit = face[1]
   end
   
+  def friendly_name       
+    case 
+    when @value < 10
+    @value.to_s
+    when @value == 11
+    "Jack"
+    when @value == 12
+    "Queen"
+    when @value == 13
+    "King"
+    when @value == 14
+    "Ace"
+    end
+  end
+  
   private
     def parse_card_value(value)
       raise StandardError, "Invalid Value" if VALUES.index(value).nil? 
