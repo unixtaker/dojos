@@ -37,4 +37,24 @@ class TestHand < Test::Unit::TestCase
     hand = Hand.new("2H 2D 3S 3D 3H")
     assert hand.has_full_house?
   end
+
+  def test_flush
+    hand = Hand.new("3H 5H 6H 7H TH")
+    assert hand.has_flush?
+  end
+
+  def test_four_of_a_kind
+    hand = Hand.new("2C 2D 2S 2H KH")
+    assert hand.has_four_of_a_kind?
+  end
+
+  def test_straight_flush
+     hand = Hand.new("2C 3C 4C 5C 6C")
+     assert hand.has_straight_flush?
+  end
+
+  def test_straight
+     hand = Hand.new("2C 3D 4C 5D 6C")
+     assert hand.has_straight?
+  end
 end

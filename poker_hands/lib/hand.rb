@@ -1,3 +1,15 @@
+class PokerSet
+  HIGH_CARD = 0x00
+  ONE_PAIR = 0x01
+  TWO_PAIR = 0x02
+  THREE_OF_A_KIND = 0x04
+  STRAIGHT = 0x08
+  FLUSH = 0x10
+  FULL_HOUSE = 0x20
+  FOUR_OF_A_KIND = 0x40
+  STRAIGHT_FLUSH = 0x80
+end
+
 class Hand
   attr_reader :cards
   
@@ -24,7 +36,38 @@ class Hand
   def has_full_house?
     set_of?(2) && set_of?(3)
   end
-  
+ 
+  def has_flush?
+    suit_check = @cards.first.suit
+    @cards.each do |c|
+	if c.suit != suit_check
+		return false
+	end
+    end
+  end
+
+  def has_straight?
+    start_check = 0
+    @cards.sort_by(&:value).each do |c| 
+      if start_check == 0 
+        start_check = c.value
+      else
+        if c.value - 1 != start_check 
+		return false
+	end
+      end
+    start_check = c.value
+    
+    end
+  end
+
+  def has_four_of_a_kind?
+    set_of?(4)
+  end
+
+  def has_straight_flush?
+     has_straight? && has_flush?
+  end
   
   private
   
